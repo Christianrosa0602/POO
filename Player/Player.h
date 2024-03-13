@@ -1,7 +1,3 @@
-//
-// Created by Victor Navarro on 13/02/24.
-//
-
 #ifndef RPG_PLAYER_H
 #define RPG_PLAYER_H
 

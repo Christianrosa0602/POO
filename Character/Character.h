@@ -1,7 +1,3 @@
-//
-// Created by Victor Navarro on 13/02/24.
-//
-
 #ifndef RPG_CHARACTER_H
 #define RPG_CHARACTER_H
 #include<string>

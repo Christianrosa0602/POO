@@ -1,9 +1,7 @@
-//
-// Created by Victor Navarro on 13/02/24.
-//
 #include "Player.h"
 #include <iostream>
 #include "../Utils.h"
+#include <algorithm>
 
 using namespace std;
 using namespace combat_utils;

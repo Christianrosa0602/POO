@@ -1,6 +1,3 @@
-//
-// Created by Victor Navarro on 13/02/24.
-//
 #include "Enemy.h"
 #include <iostream>
 

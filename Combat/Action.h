@@ -1,7 +1,3 @@
-//
-// Created by Victor Navarro on 26/02/24.
-//
-
 #ifndef RPG_ACTION_H
 #define RPG_ACTION_H
 #include<functional>
