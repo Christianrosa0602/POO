@@ -4,6 +4,7 @@
 #include "Player.h"
 #include <iostream>
 #include "../Utils.h"
+#include <algorithm>
 
 using namespace std;
 using namespace combat_utils;
@@ -26,7 +27,7 @@ void Player::doAttack(Character *target) {
 
 void Player::takeDamage(int damage) {
     setHealth(health - damage);
-    cout << "You have taken " << damage << " damage" << endl;
+    cout << "\tYou have taken " << damage << " damage" << endl;
     if (health <= 0) {
         cout << "You have died" << endl;
     }
@@ -69,7 +70,7 @@ void Player::gainExperience(int exp) {
 }
 
 Character *Player::getTarget(vector<Enemy *> enemies) {
-    cout << "Choose a target" << endl;
+    cout << "\t****Choose a target****\n" << endl;
     int targetIndex = 0;
     for (int i = 0; i < enemies.size(); i++) {
         cout << i << ". " << enemies[i]->getName() << endl;
@@ -81,7 +82,7 @@ Character *Player::getTarget(vector<Enemy *> enemies) {
 
 Action Player::takeAction(vector<Enemy *> enemies) {
     int option = 0;
-    cout << "Choose an action" << endl;
+    cout << "\Choose an action" << endl;
     cout << "1. Attack" << endl;
     cout << "2. Flee" << endl;
     cin >> option;

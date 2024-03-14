@@ -11,6 +11,7 @@ Character::Character(string _name, int _health, int _attack, int _defense, int _
     speed = _speed;
     isPlayer = _isPlayer;
     fleed = false;
+    maxHealth = _health;
 }
 
 void Character::setName(string _name) {
@@ -63,4 +64,8 @@ bool Character::getIsPlayer() {
 
 bool Character::hasFleed() {
     return fleed;
+}
+
+int Character::getMaxHealth() {
+    return maxHealth;
 }

@@ -18,6 +18,7 @@ protected:
     int speed;
     bool isPlayer;
     bool fleed;
+    int maxHealth;
 
 public:
     Character(string, int, int, int, int, bool);
@@ -38,6 +39,7 @@ public:
     string toString();
     bool getIsPlayer();
     bool hasFleed();
+    int getMaxHealth();
 };
 
 

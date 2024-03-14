@@ -57,10 +57,10 @@ void Combat::doCombat() {
 
     //No se imprime el nombre del ganador
     if(enemies.size() == 0) {
-        cout<<"You have won the combat"<<endl;
+        cout<<"\tYou have won the combat\n"<<endl;
     }
     else {
-        cout<<"The enemies have won the combat - Game Over"<<endl;
+        cout<<"\tThe enemies have won the combat - Game Over\n"<<endl;
     }
 }
 
@@ -87,9 +87,17 @@ void Combat::executeActions() {
         Action currentAction = actions.top();
         currentAction.action();
         checkForFlee(currentAction.subscriber);
-        checkParticipantStatus(currentAction.subscriber);
-        checkParticipantStatus(currentAction.target);
-        actions.pop();
+        if (currentAction.target != nullptr) {
+            checkParticipantStatus(currentAction.subscriber);
+            checkParticipantStatus(currentAction.target);
+            actions.pop();
+        }
+        else {
+                while (!actions.empty()) {
+                    actions.pop();
+                }
+            
+        }
     }
 }
 
@@ -109,11 +117,11 @@ void Combat::checkForFlee(Character *character) {
     bool fleed = character->hasFleed();
     if(fleed) {
         if(character->getIsPlayer()) {
-            cout<<"You have fled the combat"<<endl;
+            cout<<"\t********You have fled the combat********\n"<<endl;
             teamMembers.erase(remove(teamMembers.begin(), teamMembers.end(), character), teamMembers.end());
         }
         else {
-            cout<<character->getName()<<" has fled the combat"<<endl;
+            cout<<character->getName()<<" \thas fled the combat\n"<<endl;
             enemies.erase(remove(enemies.begin(), enemies.end(), character), enemies.end());
         }
         participants.erase(remove(participants.begin(), participants.end(), character), participants.end());
