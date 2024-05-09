@@ -31,6 +31,7 @@ void Enemy::takeDamage(int damage) {
     }
     else {
         cout<<"\t"<< getName() << " has taken " << damage << " damage" <<"\n" << endl;
+        cout << "\n";
     }
 }
 

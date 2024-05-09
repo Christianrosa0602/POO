@@ -121,7 +121,7 @@ void Combat::checkForFlee(Character *character) {
             teamMembers.erase(remove(teamMembers.begin(), teamMembers.end(), character), teamMembers.end());
         }
         else {
-            cout<<character->getName()<<" \thas fled the combat\n"<<endl;
+            cout<<character->getName()<<"has fled the combat\n"<<endl;
             enemies.erase(remove(enemies.begin(), enemies.end(), character), enemies.end());
         }
         participants.erase(remove(participants.begin(), participants.end(), character), participants.end());
