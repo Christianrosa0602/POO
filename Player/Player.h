@@ -9,7 +9,6 @@
 #include "../Enemy/Enemy.h"
 #include "../Combat/Action.h"
 
-struct Action;
 class Enemy;
 
 class Player: public Character {
@@ -17,16 +16,16 @@ protected:
     int experience;
     int level;
 public:
-    Player(char _name[], int _health, int _attack, int _defense, int _speed);
-    void doAttack(Character *target) override;
+    Player(char _name[30], int _health, int _attack, int _defense, int _speed, int _level);
+    void doAttack(Character* target, vector<Enemy*> enemies);
     void takeDamage(int damage) override;
 
     Character* getTarget(vector<Enemy*> enemies);
 
     void flee(vector<Enemy*> enemies);
     void emote();
-    void levelUp();
-    void gainExperience(int);
+    void levelUp(vector<Enemy*> enemies);
+    void gainExperience(int, vector<Enemy*> enemies);
 
     //Podemos hacer que este vector sea polimorfico?
     Action takeAction(vector<Enemy*> enemies);

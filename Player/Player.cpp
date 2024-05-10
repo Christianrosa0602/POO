@@ -13,18 +13,17 @@ bool compareSpeed(Enemy *a, Enemy *b) {
     return a->getSpeed() > b->getSpeed();
 }
 
-Player::Player(char name[], int health, int attack, int defense, int speed) : Character(name, health, attack, defense,
-                                                                                        speed, true) {
+Player::Player(char name[30], int health, int attack, int defense, int speed, int level) : Character(name, health, attack, defense, speed, true, level) {
     experience = 0;
-    level = 1;
+    this->level = 1;
 }
 
-void Player::doAttack(Character *target) {
+void Player::doAttack(Character *target, vector<Enemy*> enemies) {
     int rolledAttack = getRolledAttack(getAttack());
     int trueDamage = target->getDefense() > rolledAttack ? 0 : rolledAttack - target->getDefense();
     target->takeDamage(trueDamage);
     if (target->getHealth() <= 0) {
-        gainExperience(60);
+        gainExperience(60, enemies);
     }
 }
 
@@ -57,34 +56,54 @@ void Player::emote() {
     cout << "Jokes on you" << endl;
 }
 
-void Player::levelUp() {
-    level++;
-    setHealth(getHealth() + 10);
-    setAttack(getAttack() + 5);
-    setDefense(getDefense() + 5);
-    setSpeed(getSpeed() + 5);
+void Player::levelUp(vector<Enemy*> enemies) {
+    int i;
+    int hppls = getHealth() * .50;
+    int atkpls = getAttack() * .50;
+    int defpls = getDefense() * .50;
+    int spdpls = getSpeed() * .50;
+    setLevel(getLevel() + 1);
+    setHealth(getHealth() + hppls);
+    setAttack(getAttack() + atkpls);
+    setDefense(getDefense() + defpls);
+    setSpeed(getSpeed() + spdpls);
+
+    for (i = 0; i < enemies.size(); i++) {
+        enemies[i]->levelup();
+    }
 
 
-    cout << "\t>>>>>>>>>>> Level 1/(down) <<<<<<<<<<<<<<<<<<";
+    cout << "\t>>>>>>>>> Level up ;v!!!! Your level current: " << getLevel() << " <<<<<<<<<<<<" << endl;
+    cout << "\n\n";
+
+
 }
 
-void Player::gainExperience(int exp) {
+void Player::gainExperience(int exp, vector<Enemy*> enemies) {
     experience += exp;
     if (experience >= 100) {
         int trash = experience - 100;
-        levelUp();
+        levelUp(enemies);
         experience = trash;
     }
 }
 
-Character *Player::getTarget(vector<Enemy *> enemies) {
-    cout << "\t****Choose a enemy****\n" << endl;
+Character* Player::getTarget(vector<Enemy*> enemies) {
     int targetIndex = 0;
-    for (int i = 0; i < enemies.size(); i++) {
-        cout << i << ". " << enemies[i]->getName() << endl;
+    while (true) {
+        cout << "Choose your Problem <<<<" << endl;
+        for (int i = 0; i < enemies.size(); i++) {
+            cout << i << ". " << enemies[i]->getName() << endl;
+        }
+        cout << "> ";
+        cin >> targetIndex;
+        cout << "\n";
+        if (targetIndex >= enemies.size() || targetIndex < 0) {
+            cout << "\t Invalid Option!!!!!!!!!" << endl;
+            cout << "\n";
+        }
+        else break;
     }
-    cin >> targetIndex;
-    //TODO: Add input validation
     return enemies[targetIndex];
 }
 
@@ -110,9 +129,9 @@ Action Player::takeAction(vector<Enemy *> enemies) {
             target = getTarget(enemies);
             myAction.target = target;
             //1.
-            myAction.action = [this, target]() {
-                doAttack(target);
-                gainExperience(5);
+            myAction.action = [this, target, enemies]() {
+                doAttack(target, enemies);
+                gainExperience(20, enemies);
                 };
             oks = true;
             break;

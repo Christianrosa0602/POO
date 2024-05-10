@@ -7,14 +7,22 @@
 
 using namespace std;
 
+int maxHealth = 0;
+
 //TODO: Check the circular dependency
 int getRolledAttack(int attack) {
     int lowerLimit = attack * .80;
     return (rand() % (attack - lowerLimit)) + lowerLimit;
 }
 
-Enemy::Enemy(char name[], int health, int attack, int defense, int speed) : Character(name, health, attack, defense, speed, false) {
+Enemy::Enemy(char name[], int health, int attack, int defense, int speed, int level) : Character(name, health, attack, defense, speed, false, level) {
+    maxHealth = health;
+    level = 1;
 };
+
+int Enemy::getMaxHealth() {
+    return maxHealth;
+}
 
 
 
@@ -55,7 +63,7 @@ Action Enemy::takeAction(vector<Player*> player) {
     myAction.subscriber = this;
     Character* target = getTarget(player);
     myAction.target = target;
-    if ((this->getMaxHealth() * 0.50 >= this->getHealth()) && rand() % 100 < 50) {
+    if ((this->getMaxHealth() * 0.50 >= this->getHealth()) && rand() % 100 < 30) {
         myAction.action = [this, target]() {
             this->fleed = true;
             };
@@ -71,3 +79,18 @@ Action Enemy::takeAction(vector<Player*> player) {
 
     }
 
+void Enemy::levelup() {
+    int hppls = this->getHealth() * .50;
+    int atkpls = this->getAttack() * .50;
+    int defpls = this->getDefense() * .50;
+    int spdpls = this->getSpeed() * .50;
+    this->setLevel(getLevel() + 1);
+    this->setHealth(getHealth() + hppls);
+    this->setAttack(getAttack() + atkpls);
+    this->setDefense(getDefense() + defpls);
+    this->setSpeed(getSpeed() + spdpls);
+
+
+    cout << "\t>>>>>>>>> The enemy [" << getName() << "] has leveled up, he kills you!! level current to destroy you : " << getLevel() << " <<<<<<<<<<<<" << endl;
+    cout << "\n\n";
+}

@@ -11,14 +11,19 @@
 struct Action;
 class Player;
 
-class Enemy: public Character {
+class Enemy : public Character {
+private:
+    int level = 0;
 public:
-    Enemy(char[], int, int, int, int);
-    void doAttack(Character *target) override;
+    Enemy(char[30], int, int, int, int, int);
+    int getMaxHealth();
+    void doAttack(Character* target);
     void takeDamage(int damage) override;
+    void levelup();
     Character* getTarget(vector<Player*> teamMembers);
-    Action takeAction(vector<Player*> player);
+    Action takeAction(vector<Player*> teamMembers);
 };
+
 
 
 #endif //RPG_ENEMY_H

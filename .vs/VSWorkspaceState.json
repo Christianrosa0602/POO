@@ -12,6 +12,6 @@
     "\\Enemy",
     "\\Player"
   ],
-  "SelectedNode": "\\main.cpp",
+  "SelectedNode": "\\Enemy\\Enemy.cpp",
   "PreviewInSolutionExplorer": false
 }
